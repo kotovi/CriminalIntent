@@ -10,7 +10,38 @@ public class Crime {
     private boolean mSloved;
     public Crime(){
         mId = UUID.randomUUID();
-        mDate = new
+        mDate = new Date();
     }
 
+    public UUID getId() {
+        return mId;
+    }
+
+    public void setId(UUID id) {
+        mId = id;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
+    }
+
+    public boolean isSloved() {
+        return mSloved;
+    }
+
+    public void setSloved(boolean sloved) {
+        mSloved = sloved;
+    }
 }
