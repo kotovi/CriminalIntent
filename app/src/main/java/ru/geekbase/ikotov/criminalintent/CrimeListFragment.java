@@ -8,12 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private  CrimeAdapter mAdapter;
+    private  Crime mCrime;
+    private TextView mTitleTextView;
+    private TextView mDateTextView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false
@@ -28,8 +32,22 @@ public class CrimeListFragment extends Fragment {
     private class CrimeHolder extends RecyclerView.ViewHolder {
         public CrimeHolder(LayoutInflater inflater, ViewGroup paren){
             super(inflater.inflate(R.layout.list_item_crime, paren, false));
+            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+        }
+        public void bind (Crime crime){
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mTitleTextView.setText(mCrime.getDate().toString());
         }
     }
+
+
+
+
+
+    //bind
+
 
     //adapter 193
 
@@ -48,6 +66,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(CrimeHolder holder, int position) {
+            Crime crime = mCrimes.get(position);
+           holder.bind(crime);
 
         }
 
