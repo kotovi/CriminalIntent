@@ -41,7 +41,7 @@ public class CrimeListFragment extends Fragment {
         public void bind (Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mTitleTextView.setText(mCrime.getDate().toString());
+            mDateTextView.setText(mCrime.getDate().toString());
         }
         @Override
         public void onClick(View view) {
