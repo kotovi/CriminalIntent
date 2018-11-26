@@ -31,8 +31,7 @@ public class CrimeListFragment extends Fragment {
         return view;
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
@@ -45,41 +44,22 @@ public class CrimeListFragment extends Fragment {
                     mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
                     mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
                     mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
-
-
                 }
-                public void bind (Crime crime){
+        @Override
+                public void onClick(View view) {
+                   Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+                    startActivity(intent);
+                 }
 
-                   // DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(mDateTextView);
-                    //DateFormat.getDateInstance().format(date);
+                public void bind (Crime crime){
                     mCrime = crime;
                     mTitleTextView.setText(mCrime.getTitle());
                     mDateTextView.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT).format(mCrime.getDate()).toString());
                     mSolvedImageView.setVisibility(crime.isSloved() ? View.VISIBLE : View.GONE);
-                   // itemView.setOnClickListener(this);
                     }
-        @Override
-                public void onClick(View view) {
-              /*  Toast.makeText(getActivity(),
-                        mCrime.getTitle()+ " clicked!", Toast.LENGTH_SHORT)
-                        .show();*/
-//
-           //   Intent intent = new Intent(getActivity(), CrimeActivity.class);
-               Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-                   startActivity(intent);
 
-
-                }
     }
 
-
-
-
-
-    //bind
-
-
-    //adapter 193
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
         private List<Crime> mCrimes;

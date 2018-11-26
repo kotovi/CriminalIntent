@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -22,42 +23,40 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckbox;
 
+    private CrimeListFragment.CrimeAdapter mAdapter;
+
 
     private static final String ARG_CRIME_ID = "crime_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-       // mCrime = new Crime();
-     //   UUID crimeId = (UUID) getActivity().getIntent()
-      //          .getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-     View v = inflater.inflate(R.layout.fragment_crime, container,false);
+        View v = inflater.inflate(R.layout.fragment_crime, container,false);
 
-     mTitleField = (EditText) v.findViewById(R.id.crime_title);
-     mTitleField.setText(mCrime.getTitle());
+        mTitleField = (EditText) v.findViewById(R.id.crime_title);
+        mTitleField.setText(mCrime.getTitle());
 
-     mTitleField.addTextChangedListener(new TextWatcher() {
-         @Override
-         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        mTitleField.addTextChangedListener(new TextWatcher() {
+            @Override
+             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-         }
+            }
 
-         @Override
-         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             mCrime.setTitle( s.toString());
-         }
+             }
 
-         @Override
-         public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
-         }
+            }
      });
 
      mDateButton = (Button) v.findViewById(R.id.crime_date);
@@ -74,6 +73,26 @@ public class CrimeFragment extends Fragment {
      });
 
      return v;
+    }
+
+    @Override
+    public  void onResume() {
+        super.onResume();
+        updateUI();
+
+    }
+
+    private void updateUI() {
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
+
+        if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+
+        } else {
+            mAdapter.notyfyDataSetChanged();
+        }
     }
 
     public static CrimeFragment newInstance(UUID crimeId){
