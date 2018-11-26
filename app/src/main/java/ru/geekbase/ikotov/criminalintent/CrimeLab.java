@@ -37,8 +37,9 @@ public class CrimeLab {
         mCrimes = new ArrayList<>();
         for (int i =0; i < 100; i++){
             Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSloved(i % 2 ==0); //for all 2 objects
+            crime.setTitle("Crime # " + i);
+            crime.setSloved(i % 2 == 0); //for all 2 objects
+            crime.setRequestPolice(i % 2 == 0);
             mCrimes.add(crime);
         }
     }

@@ -8,6 +8,7 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSloved;
+    private boolean mRequestPolice;
     public Crime(){
         mId = UUID.randomUUID();
         mDate = new Date();
@@ -44,4 +45,8 @@ public class Crime {
     public void setSloved(boolean sloved) {
         mSloved = sloved;
     }
+
+    public boolean ismRequestPolice() {return  mRequestPolice;}
+    public void setRequestPolice (boolean RequestPolice) {mRequestPolice = RequestPolice;}
+
 }

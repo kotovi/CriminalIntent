@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,39 +18,47 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private  CrimeAdapter mAdapter;
     private  Crime mCrime;
-    private TextView mTitleTextView;
-    private TextView mDateTextView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_crime_list, container, false
-        );
-        mCrimeRecyclerView = (RecyclerView) view
-                .findViewById(R.id.crimr_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
+        mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crimr_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
-        public CrimeHolder(LayoutInflater inflater, ViewGroup paren){
-            super(inflater.inflate(R.layout.list_item_crime, paren, false));
-            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
-            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+    private class CrimeHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
-            itemView.setOnClickListener(this);
-        }
-        public void bind (Crime crime){
-            mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
-        }
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private ImageView mSolvedImageView;
+
+                public CrimeHolder(LayoutInflater inflater, ViewGroup paren){
+                    super(inflater.inflate(R.layout.list_item_crime, paren, false));
+                    itemView.setOnClickListener(this);
+
+                    mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+                    mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+                    mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
+
+
+                }
+                public void bind (Crime crime){
+                    mCrime = crime;
+                    mTitleTextView.setText(mCrime.getTitle());
+                    mDateTextView.setText(mCrime.getDate().toString());
+                    mSolvedImageView.setVisibility(crime.isSloved() ? View.VISIBLE : View.GONE);
+                   // itemView.setOnClickListener(this);
+                    }
         @Override
-        public void onClick(View view) {
+                public void onClick(View view) {
+                Toast.makeText(getActivity(),
+                        mCrime.getTitle()+ " clicked!", Toast.LENGTH_SHORT)
+                        .show();
 
-            Toast.makeText(getActivity(), mCrime.getTitle()+ " clicked!", Toast.LENGTH_SHORT)
-                    .show();
-
-        }
+                }
     }
 
 
