@@ -23,7 +23,6 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckbox;
 
-    private CrimeListFragment.CrimeAdapter mAdapter;
 
 
     private static final String ARG_CRIME_ID = "crime_id";
@@ -74,7 +73,7 @@ public class CrimeFragment extends Fragment {
 
      return v;
     }
-
+/*
     @Override
     public  void onResume() {
         super.onResume();
@@ -82,7 +81,7 @@ public class CrimeFragment extends Fragment {
 
     }
 
-    private void updateUI() {
+   private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
@@ -93,7 +92,7 @@ public class CrimeFragment extends Fragment {
         } else {
             mAdapter.notyfyDataSetChanged();
         }
-    }
+    }*/
 
     public static CrimeFragment newInstance(UUID crimeId){
          Bundle args = new Bundle();
